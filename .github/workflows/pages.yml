@@ -1,0 +1,36 @@
+name: Publish console
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+        # The console address is injected at build time so the published site
+        # always points at the pinned deployment without a code change.
+      - run: npm run build
+        env:
+          STATIC_EXPORT: "1"
+          NEXT_PUBLIC_CONTRACT_ADDRESS: ${{ vars.NEXT_PUBLIC_CONTRACT_ADDRESS }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.deployment.outputs.page_url }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+      - id: deployment
+        uses: actions/deploy-pages@v4

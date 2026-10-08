@@ -1,0 +1,12 @@
+{
+  "network": "GenLayer Studio Next",
+  "networkKey": "studio-next",
+  "chainId": 61997,
+  "rpc": "https://studio-next.genlayer.com/api",
+  "explorer": "https://explorer-studio-next.genlayer.com",
+  "contract": "contracts/VerdictLoop.py",
+  "address": "0xed11a862889d98042581B8a7104aFABe4941bF70",
+  "verified": true,
+  "verification": "Deployed code fetched via gen_getContractCode and compared with contracts/VerdictLoop.py — byte-identical after line-ending normalization (see scripts/verify_deployment.py).",
+  "notes": "The only active deployment. The console points at it through src/lib/config.ts (or NEXT_PUBLIC_CONTRACT_ADDRESS). After a redeploy: update `address` here, update the address in src/lib/config.ts, then re-run scripts/verify_deployment.py."
+}
